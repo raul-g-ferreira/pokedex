@@ -1,13 +1,48 @@
 <div class="pokedex-container">
 
-  @if (isLoading) {
+  <div class="filters-container" style="display: flex; gap: 16px; padding: 20px;">
+
+    <mat-form-field appearance="outline" style="flex: 1;">
+      <mat-label>Search Pokémon</mat-label>
+      <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event); onFilterChange()" placeholder="Ex: Bulbasaur">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="min-width: 200px;">
+      <mat-label>Filter By Type</mat-label>
+      <mat-select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($event); onFilterChange()" multiple>
+        @for (type of availableTypes(); track type) {
+          <mat-option [value]="type">{{ type | titlecase }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  @if (isLoading()) {
     <div class="loading">
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
-  }
+  } @else {
+
     <div class="grid">
-      @for (pokemon of pokemons(); track pokemon.id) {
+      @for (pokemon of pagedPokemons(); track pokemon.id) {
+
         <app-pokemon-card [pokemon]="pokemon" />
+
+      } @empty {
+        <div class="empty-state">
+          <p>No Pokémon found with these filters.</p>
+        </div>
       }
     </div>
+
+    <mat-paginator
+      [length]="filteredPokemons().length"
+      [pageSize]="pageSize()"
+      [pageSizeOptions]="[12, 24, 48, 151]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+
+  }
 </div>

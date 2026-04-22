@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { PokemonBasic } from '../../model/pokemon-basic';
+import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TitleCasePipe, UpperCasePipe } from '@angular/common';

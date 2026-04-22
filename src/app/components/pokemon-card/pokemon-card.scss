@@ -1,23 +1,43 @@
 .pokemon-card {
-  box-sizing: border-box;
-  border-radius: 5px;
-  box-shadow: 1px 1px 5px 5px #80020d;
+  background-color: #212121 !important; // Cor da superfície idêntica ao modal
+  color: #ffffff;
+  border-radius: 12px;
   cursor: pointer;
+  border: 1px solid #333; // Borda subtil para separar do fundo
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  height: 100%; // Ajuda a manter o grid alinhado
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 1px 1px 5px 5px #c20414;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    border-color: #555;
   }
-}
 
-.title {
-  font-size: 1.2em;
-  font-weight: bold;
-}
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
 
-.id {
-  position: absolute;
-  right: 10px;
-  top: 2px;
-  font-size: 0.7em;
+    .title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .id {
+      color: #aaaaaa;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+  }
+
+  // Fundo dinâmico para a imagem saltar aos olhos
+  img {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 15px;
+    object-fit: contain;
+    max-height: 200px;
+  }
 }

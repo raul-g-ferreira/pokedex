@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
-import { PokemonBasic } from '../../model/pokemon-basic';
+import { PokemonBasic } from '../../models/pokemon-basic';
 import { TitleCasePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PokemonDetail } from '../pokemon-detail/pokemon-detail';

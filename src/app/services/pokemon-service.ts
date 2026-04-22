@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable } from 'rxjs';
-import { PokemonBasic } from '../model/pokemon-basic';
-import { PokemonListResponse } from '../model/pokemon-list-response';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { PokemonBasic } from '../models/pokemon-basic';
+import { PokemonListResponse } from '../models/pokemon-list-response';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +16,28 @@ export class PokemonService {
 
   getFirstGenerationPokemons(): Observable<PokemonBasic[]> {
     return this.http.get<PokemonListResponse>(this.baseUrl).pipe(
-      map(response => {
-        return response.results.map(pokemon => {
+
+      switchMap(response => {
+        const requests = response.results.map(pokemon => {
           const urlParts = pokemon.url.split('/');
           const id = urlParts[urlParts.length - 2];
-
           const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
-          return {...pokemon, id, imageUrl}
-        })
+          return this.http.get<any>(pokemon.url).pipe(
+            map(details => {
+              return {
+                ...pokemon,
+                id,
+                imageUrl,
+                types: details.types
+              };
+            })
+          );
+        });
+
+        return forkJoin(requests);
       })
-    )
+    );
   }
 
   getPokemonDetails(id: string): Observable<any> {

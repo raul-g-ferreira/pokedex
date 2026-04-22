@@ -1,0 +1,50 @@
+.modal-pokedex {
+  background-color: #212121;
+  color: white;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.type-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 8px;
+  &.normal { background: #A8A878; }
+  &.fire { background: #F08030; }
+  &.water { background: #6890F0; }
+  &.grass { background: #78C850; }
+  &.electric { background: #F8D030; }
+  &.ice { background: #98D8D8; }
+  &.fighting { background: #C03028; }
+  &.poison { background: #A040A0; }
+  &.ground { background: #E0C068; }
+  &.flying { background: #A890F0; }
+  &.psychic { background: #F85888; }
+  &.bug { background: #A8B820; }
+  &.rock { background: #B8A038; }
+  &.ghost { background: #705898; }
+  &.dragon { background: #7038F8; }
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  .label { width: 100px; font-size: 12px; }
+  .bar-container {
+    flex: 1;
+    background: #444;
+    height: 12px;
+    border-radius: 6px;
+    position: relative;
+    .bar {
+      height: 100%;
+      background: #4caf50; // Verde para os stats
+      border-radius: 6px;
+    }
+    .value { position: absolute; right: 5px; top: -2px; font-size: 10px; }
+  }
+}

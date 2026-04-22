@@ -1,0 +1,13 @@
+<div class="pokedex-container">
+
+  @if (isLoading) {
+    <div class="loading">
+      <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+  }
+    <div class="grid">
+      @for (pokemon of pokemons(); track pokemon.id) {
+        <app-pokemon-card [pokemon]="pokemon" />
+      }
+    </div>
+</div>

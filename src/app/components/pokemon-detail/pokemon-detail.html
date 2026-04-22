@@ -1,0 +1,44 @@
+<div mat-dialog-content class="modal-pokedex">
+  @if (isLoading) {
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  @if (!isLoading) {
+    <div class="header">
+      <span class="id">#{{ data.id }}</span>
+      <h1 class="name">{{ data.name | titlecase }}</h1>
+    </div>
+
+    <div class="main-info">
+      <img [src]="data.imageUrl" class="pokemon-img">
+
+      <div class="types">
+        @for (t of pokemonFull().types; track t) {
+        <span class="type-badge" [class]="t.type.name">
+          {{ t.type.name | uppercase }}
+        </span>
+        }
+      </div>
+    </div>
+
+    <div class="description">
+      <h3>Descrição</h3>
+      <p>{{ pokemonFull().description }}</p>
+    </div>
+
+    <div class="stats-section">
+      <h3>Status Base</h3>
+      @for (s of pokemonFull().stats; track s) {
+      <div class="stat-row">
+        <span class="label">{{ adjustStatsName(s.stat.name) }}</span>
+        <div class="bar-container">
+          <div class="bar" [style.width.%]="(s.base_stat / 200) * 100"></div>
+          <span class="value">{{ s.base_stat }}</span>
+        </div>
+      </div>
+      }
+    </div>
+  }
+</div>

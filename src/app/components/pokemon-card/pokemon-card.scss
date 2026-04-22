@@ -1,0 +1,23 @@
+.pokemon-card {
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 5px #80020d;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 1px 1px 5px 5px #c20414;
+  }
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.id {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  font-size: 0.7em;
+}

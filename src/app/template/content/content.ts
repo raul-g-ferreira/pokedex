@@ -5,6 +5,6 @@ import { PokedexComponent } from '../../components/pokedex-component/pokedex-com
   selector: 'app-content',
   imports: [PokedexComponent],
   templateUrl: './content.html',
-  styleUrl: './content.css',
+  styleUrl: './content.scss',
 })
 export class Content {}

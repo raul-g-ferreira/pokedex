@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
 import { PokemonCard } from '../pokemon-card/pokemon-card';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CardSkeleton } from '../skeletons/card-skeleton/card-skeleton';
 
 @Component({
   selector: 'app-pokedex-component',
@@ -20,10 +22,13 @@ import { PokemonCard } from '../pokemon-card/pokemon-card';
     MatSelectModule,
     MatIconModule,
     FormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    NgxSkeletonLoaderModule,
+    CardSkeleton
   ],
   templateUrl: './pokedex-component.html',
   styleUrl: './pokedex-component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class PokedexComponent implements OnInit {
   public allPokemons = signal<PokemonBasic[]>([]);

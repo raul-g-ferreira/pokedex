@@ -1,0 +1,20 @@
+<mat-card class="pokemon-card">
+  <mat-card-header class="header">
+    <mat-card-title class="title">
+      <span>
+        <ngx-skeleton-loader
+          appearance="line"
+          [theme]="{ height: '20px', width: '80%', margin: '0 auto' }"></ngx-skeleton-loader>
+      </span>
+    </mat-card-title>
+    <span class="id">
+      <ngx-skeleton-loader
+        appearance="line"
+        [theme]="{ height: '20px', width: '40px', margin: '0 auto' }"></ngx-skeleton-loader>
+    </span>
+  </mat-card-header>
+  <ngx-skeleton-loader
+    matCardImage
+    appearance="square"
+    [theme]="{ width: '120px', height: '120px', margin: '20px auto', display: 'block' }"></ngx-skeleton-loader>
+</mat-card>

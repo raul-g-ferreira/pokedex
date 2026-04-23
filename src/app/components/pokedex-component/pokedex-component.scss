@@ -15,14 +15,13 @@
 
 .grid {
   display: grid;
-  // Isto cria a responsividade automática sem precisar de media queries!
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   margin-bottom: 30px;
 }
 
 .empty-state {
-  grid-column: 1 / -1; // Ocupa a linha inteira
+  grid-column: 1 / -1;
   text-align: center;
   padding: 50px;
   color: #888;

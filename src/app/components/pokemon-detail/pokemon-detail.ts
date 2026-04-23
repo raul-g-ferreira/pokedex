@@ -16,7 +16,6 @@ import { TitleCasePipe, UpperCasePipe } from '@angular/common';
   styleUrl: './pokemon-detail.scss',
 })
 export class PokemonDetail implements OnInit {
-  // public pokemonFull: any;
   public pokemonFull = signal<any>(null);
   public isLoading: boolean = true;
 

@@ -11,6 +11,7 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
+  color: #212121 ;
   margin-right: 8px;
 
   &.normal {
@@ -71,6 +72,10 @@
 
   &.dragon {
     background: #7038F8;
+  }
+
+  &.fairy {
+    background: #e770f7;
   }
 }
 

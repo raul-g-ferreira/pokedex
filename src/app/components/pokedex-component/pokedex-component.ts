@@ -70,7 +70,6 @@ export class PokedexComponent implements OnInit {
     this.pokemonService.getFirstGenerationPokemons().subscribe({
       next: (data) => {
         this.allPokemons.update(d => d = data)
-        // this.pokemons = data
         this.isLoading.set(false);
       },
       error: (err) => {

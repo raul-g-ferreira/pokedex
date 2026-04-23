@@ -1,11 +1,11 @@
 .pokemon-card {
-  background-color: #212121 !important; // Cor da superfície idêntica ao modal
+  background-color: #212121 !important;
   color: #ffffff;
   border-radius: 12px;
   cursor: pointer;
-  border: 1px solid #333; // Borda subtil para separar do fundo
+  border: 1px solid #333;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  height: 100%; // Ajuda a manter o grid alinhado
+  height: 100%;
 
   &:hover {
     transform: translateY(-5px) scale(1.02);
@@ -32,7 +32,6 @@
     }
   }
 
-  // Fundo dinâmico para a imagem saltar aos olhos
   img {
     background-color: #2a2a2a;
     border-radius: 8px;

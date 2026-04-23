@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { PokemonBasic } from '../models/pokemon-basic';
 import { PokemonListResponse } from '../models/pokemon-list-response';
 
@@ -41,6 +41,12 @@ export class PokemonService {
   }
 
   getPokemonDetails(id: string): Observable<any> {
+    const cached = localStorage.getItem(`pokemon_${id}`);
+    if (cached) {
+      console.log('pegou no cache');
+      return of(JSON.parse(cached));
+    }
+
     const pokemonInfo = this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
     const pokemonSpecies = this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
 
@@ -49,11 +55,14 @@ export class PokemonService {
       species: pokemonSpecies
     }).pipe(
       map((res: any) => {
-        return {
+        const fullPokemon = {
           ...res.info,
           description: res.species.flavor_text_entries.find((entry: any) => entry.language.name === 'en')?.flavor_text
           .replace(/[\n\f]/g, ' ')
         }
+        localStorage.setItem(`pokemon_${id}`, JSON.stringify(fullPokemon))
+        console.log("bateu lá")
+        return fullPokemon
       })
     )
   }

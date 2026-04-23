@@ -29,7 +29,8 @@ export class PokemonService {
                 ...pokemon,
                 id,
                 imageUrl,
-                types: details.types
+                types: details.types,
+                isFavorite: false
               };
             })
           );
@@ -57,11 +58,18 @@ export class PokemonService {
         const fullPokemon = {
           ...res.info,
           description: res.species.flavor_text_entries.find((entry: any) => entry.language.name === 'en')?.flavor_text
-          .replace(/[\n\f]/g, ' ')
+          .replace(/[\n\f]/g, ' '),
+          isFavorite: false
         }
         localStorage.setItem(`pokemon_${id}`, JSON.stringify(fullPokemon))
         return fullPokemon
       })
     )
+  }
+
+  toggleFavorite(id: string) {
+    const pokemon = JSON.parse(localStorage.getItem(`pokemon_${id}`)!)
+    pokemon.isFavorite = !pokemon.isFavorite
+    localStorage.setItem(`pokemon_${id}`, JSON.stringify(pokemon))
   }
 }

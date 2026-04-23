@@ -9,6 +9,14 @@
     <div class="header">
       <h1 class="name">{{ data.name | titlecase }}</h1>
       <span class="id">#{{ data.id }}</span>
+
+      <button (click)="toggleFavorite(data.id)">
+          @if (!pokemonFull().isFavorite) {
+          <mat-icon>favorite_border</mat-icon>
+        } @else {
+          <mat-icon>favorite</mat-icon>
+        }
+        </button>
     </div>
 
     <div class="main-info">
@@ -21,6 +29,7 @@
         </span>
         }
       </div>
+
     </div>
 
     <div class="description">

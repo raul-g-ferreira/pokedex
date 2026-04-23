@@ -11,6 +11,7 @@ import { PokemonService } from '../../services/pokemon-service';
 import { PokemonCard } from '../pokemon-card/pokemon-card';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CardSkeleton } from '../skeletons/card-skeleton/card-skeleton';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-pokedex-component',
@@ -24,7 +25,8 @@ import { CardSkeleton } from '../skeletons/card-skeleton/card-skeleton';
     FormsModule,
     TitleCasePipe,
     NgxSkeletonLoaderModule,
-    CardSkeleton
+    CardSkeleton,
+    MatCheckboxModule
   ],
   templateUrl: './pokedex-component.html',
   styleUrl: './pokedex-component.scss',
@@ -37,6 +39,7 @@ export class PokedexComponent implements OnInit {
   public searchTerm = signal<string>('');
   public selectedType = signal<string[]>([]);
   public availableTypes = signal<string[]>(['normal', 'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy']);
+  public showOnlyFavorites = signal<boolean>(false);
 
   public pageSize = signal<number>(12);
   public currentPage = signal<number>(0);
@@ -44,6 +47,11 @@ export class PokedexComponent implements OnInit {
   public filteredPokemons = computed(() => {
     const term = this.searchTerm().toLowerCase();
     const type = this.selectedType();
+    const showFavs = this.showOnlyFavorites();
+
+    this.allPokemons().forEach(pokemon => {
+      pokemon.isFavorite = JSON.parse(localStorage.getItem(`pokemon_${pokemon.id}`) || 'false').isFavorite;
+    })
 
     return this.allPokemons().filter(pokemon => {
       const matchName = pokemon.name.toLowerCase().includes(term);
@@ -53,8 +61,9 @@ export class PokedexComponent implements OnInit {
           (pokemon as any).types?.some((pkmType: any) => pkmType.type.name === selectedType)
         )
         : true;
-      return matchName && matchType;
+      return matchName && matchType && (!showFavs || (pokemon as any).isFavorite);
     });
+
   });
 
   public pagedPokemons = computed(() => {

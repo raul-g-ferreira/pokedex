@@ -3,4 +3,5 @@ export interface PokemonBasic {
   url: string;
   id?: string;
   imageUrl?: string;
+  isFavorite?: boolean;
 }

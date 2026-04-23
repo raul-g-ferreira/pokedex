@@ -113,7 +113,6 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding-bottom: 10px;
 
@@ -127,5 +126,19 @@
     color: #aaaaaa;
     font-weight: bold;
     font-size: 1rem;
+    position: static;
+    margin-left: 10px;
+  }
+}
+
+button {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #fff;
   }
 }

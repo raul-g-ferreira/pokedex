@@ -17,6 +17,9 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-checkbox [checked]="showOnlyFavorites()" (change)="showOnlyFavorites.set(!showOnlyFavorites()); onFilterChange()">Favorites</mat-checkbox>
+
+
   </div>
 
   <div class="grid">

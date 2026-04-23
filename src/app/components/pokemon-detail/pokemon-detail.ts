@@ -4,6 +4,7 @@ import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -11,6 +12,7 @@ import { TitleCasePipe, UpperCasePipe } from '@angular/common';
     MatProgressSpinner,
     TitleCasePipe,
     UpperCasePipe,
+    MatIconModule
   ],
   templateUrl: './pokemon-detail.html',
   styleUrl: './pokemon-detail.scss',
@@ -46,4 +48,17 @@ export class PokemonDetail implements OnInit {
     return names[statName] || statName
   }
 
+  toggleFavorite(id: string | undefined) {
+    if (!id) {
+      console.error('Internal error')
+    }
+    this.pokemonService.toggleFavorite(id!);
+
+    this.pokemonFull.update(pokemon => {
+        return {
+          ...pokemon,
+          isFavorite: !pokemon.isFavorite
+        }
+    })
+  }
 }

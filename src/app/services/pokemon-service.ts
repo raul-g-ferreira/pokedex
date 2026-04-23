@@ -43,7 +43,6 @@ export class PokemonService {
   getPokemonDetails(id: string): Observable<any> {
     const cached = localStorage.getItem(`pokemon_${id}`);
     if (cached) {
-      console.log('pegou no cache');
       return of(JSON.parse(cached));
     }
 
@@ -61,7 +60,6 @@ export class PokemonService {
           .replace(/[\n\f]/g, ' ')
         }
         localStorage.setItem(`pokemon_${id}`, JSON.stringify(fullPokemon))
-        console.log("bateu lá")
         return fullPokemon
       })
     )

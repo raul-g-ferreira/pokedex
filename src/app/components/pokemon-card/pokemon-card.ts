@@ -19,7 +19,6 @@ export class PokemonCard {
   ) {}
 
   showDetails(pkm: PokemonBasic) {
-    console.log(`Show details for ${pkm.name}`);
     this.dialog.open(PokemonDetail, {
       width: '600px',
       data: pkm

@@ -4,6 +4,14 @@
   padding: 20px;
   max-height: 80vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.modal-pokedex div {
+  width: 400px;
 }
 
 .type-badge {
@@ -147,4 +155,10 @@
 
 .favorite {
   color: #fd2d2d;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }

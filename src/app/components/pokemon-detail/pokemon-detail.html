@@ -1,18 +1,20 @@
-<div mat-dialog-content class="modal-pokedex">
+<div class="modal-pokedex">
   @if (isLoading) {
-    <app-detail-skeleton></app-detail-skeleton>
+  <app-detail-skeleton></app-detail-skeleton>
   }@else {
+
+  <div>
     <div class="header">
       <h1 class="name">{{ data.name | titlecase }}</h1>
       <span class="id">#{{ data.id }}</span>
 
       <button (click)="toggleFavorite(data.id)">
         @if (!pokemonFull().isFavorite) {
-          <mat-icon>favorite_border</mat-icon>
+        <mat-icon>favorite_border</mat-icon>
         } @else {
-          <mat-icon class="favorite">favorite</mat-icon>
+        <mat-icon class="favorite">favorite</mat-icon>
         }
-        </button>
+      </button>
     </div>
 
     <div class="main-info">
@@ -25,8 +27,10 @@
         </span>
         }
       </div>
-
     </div>
+  </div>
+
+  <div class="details">
 
     <div class="description">
       <h3>Description</h3>
@@ -36,14 +40,15 @@
     <div class="stats-section">
       <h3>Status Base</h3>
       @for (s of pokemonFull().stats; track s) {
-      <div class="stat-row">
-        <span class="label">{{ adjustStatsName(s.stat.name) }}</span>
-        <div class="bar-container">
-          <div class="bar" [style.width.%]="(s.base_stat / 200) * 100"></div>
-          <span class="value">{{ s.base_stat }}</span>
+        <div class="stat-row">
+          <span class="label">{{ adjustStatsName(s.stat.name) }}</span>
+          <div class="bar-container">
+            <div class="bar" [style.width.%]="(s.base_stat / 200) * 100"></div>
+            <span class="value">{{ s.base_stat }}</span>
+          </div>
         </div>
-      </div>
       }
     </div>
+  </div>
   }
 </div>

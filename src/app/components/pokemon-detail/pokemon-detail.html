@@ -3,9 +3,7 @@
     <div class="spinner">
       <mat-spinner></mat-spinner>
     </div>
-  }
-
-  @if (!isLoading) {
+  }@else {
     <div class="header">
       <h1 class="name">{{ data.name | titlecase }}</h1>
       <span class="id">#{{ data.id }}</span>

@@ -11,7 +11,7 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
-  color: #212121 ;
+  color: #212121;
   margin-right: 8px;
 
   &.normal {
@@ -129,16 +129,22 @@
     position: static;
     margin-left: 10px;
   }
+
+  button {
+    position: absolute;
+    right: 30px;
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
-button {
-  background: none;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: #fff;
-  }
+.favorite {
+  color: #fd2d2d;
 }

@@ -50,7 +50,9 @@ export class PokedexComponent implements OnInit {
     const showFavs = this.showOnlyFavorites();
 
     this.allPokemons().forEach(pokemon => {
-      pokemon.isFavorite = JSON.parse(localStorage.getItem(`pokemon_${pokemon.id}`) || 'false').isFavorite;
+      this.pokemonService.getFavoritoStatus(pokemon.id!).subscribe(isFav => {
+        pokemon.isFavorite = isFav;
+      });
     })
 
     return this.allPokemons().filter(pokemon => {

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, from, map, Observable, of, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { PokemonBasic } from '../models/pokemon-basic';
 import { PokemonListResponse } from '../models/pokemon-list-response';
-import { get, set } from 'idb-keyval';
+import { StorageService } from './storage-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,8 @@ export class PokemonService {
   private readonly baseUrl = 'https://pokeapi.co/api/v2/pokemon?limit=151';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private storage: StorageService
   ) {}
 
   getFirstGenerationPokemons(): Observable<PokemonBasic[]> {
@@ -45,7 +46,7 @@ export class PokemonService {
   getPokemonDetails(id: string): Observable<any> {
     const CACHE_KEY = `pokemon_${id}`;
 
-    return from(get<any>(CACHE_KEY)).pipe(
+    return this.storage.getItem<any>(CACHE_KEY).pipe(
 
       switchMap(cachedDetail => {
 
@@ -67,7 +68,7 @@ export class PokemonService {
               .replace(/[\n\f]/g, ' '),
               isFavorite: false
             }
-            set(CACHE_KEY, fullPokemon)
+            this.storage.setItem(CACHE_KEY, fullPokemon)
 
             return fullPokemon
           })
@@ -77,9 +78,18 @@ export class PokemonService {
 
   }
 
+  getFavoritoStatus(id: string): Observable<boolean> {
+     return this.storage.getItem<any>(`pokemon_${id}`).pipe(
+       map(pokemon => pokemon ? pokemon.isFavorite : false)
+     );
+  }
+
   async toggleFavorite(id: string) {
-    const pokemon = await get(`pokemon_${id}`);
-    pokemon.isFavorite = !pokemon.isFavorite;
-    await set(`pokemon_${id}`, pokemon);
+    const pokemon = await this.storage.getItem<any>(`pokemon_${id}`).toPromise();
+    if(pokemon) {
+      pokemon.isFavorite = !pokemon.isFavorite;
+      await this.storage.setItem(`pokemon_${id}`, pokemon);
+
+    }
   }
 }

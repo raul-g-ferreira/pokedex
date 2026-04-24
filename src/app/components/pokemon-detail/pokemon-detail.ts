@@ -1,18 +1,19 @@
+import { TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
 
 @Component({
   selector: 'app-pokemon-detail',
-  imports: [MatDialogModule,
-    MatProgressSpinner,
+  imports: [
+    MatDialogModule,
     TitleCasePipe,
     UpperCasePipe,
-    MatIconModule
+    MatIconModule,
+    DetailSkeleton
   ],
   templateUrl: './pokemon-detail.html',
   styleUrl: './pokemon-detail.scss',

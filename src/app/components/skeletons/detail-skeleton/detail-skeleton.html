@@ -1,0 +1,39 @@
+<div class="header">
+  <h1 class="name">
+    <ngx-skeleton-loader
+      appearance="line"
+      [theme]="{ height: '30px', width: '150px', margin: '0 auto' }"></ngx-skeleton-loader>
+  </h1>
+  <button>
+    <mat-icon>favorite_border</mat-icon>
+  </button>
+</div>
+<div class="main-info">
+  <ngx-skeleton-loader
+    appearance="square"
+    [theme]="{ width: '400px', height: '300px', margin: '10px auto', display: 'block' }">
+  </ngx-skeleton-loader>
+</div>
+<div class="description">
+  <p>
+    <ngx-skeleton-loader
+      appearance="line"
+      [theme]="{ height: '15px', width: '90%', margin: '10px auto' }"></ngx-skeleton-loader>
+    <ngx-skeleton-loader
+      appearance="line"
+      [theme]="{ height: '15px', width: '70%', margin: '10px auto' }"></ngx-skeleton-loader>
+  </p>
+</div>
+<div class="stats-section">
+  <h3>
+    <ngx-skeleton-loader
+      appearance="line"
+      [theme]="{ height: '25px', width: '120px', margin: '0 auto' }"></ngx-skeleton-loader>
+  </h3>
+  @for (i of [0,1,2,3,4,5]; track i) {
+    <div class="stat-row">
+      <div class="bar-container">
+      </div>
+    </div>
+  }
+</div>

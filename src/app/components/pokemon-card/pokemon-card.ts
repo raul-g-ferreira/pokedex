@@ -21,7 +21,9 @@ export class PokemonCard {
   showDetails(pkm: PokemonBasic) {
     this.dialog.open(PokemonDetail, {
       width: '600px',
-      data: pkm
+      data: pkm,
+      panelClass: 'modal-pokemon-custom',
+      backdropClass: 'blur-backdrop'
     })
   }
 }

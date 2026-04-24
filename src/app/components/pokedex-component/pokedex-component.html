@@ -10,9 +10,11 @@
 
     <mat-form-field appearance="outline" style="min-width: 200px;">
       <mat-label>Filter By Type</mat-label>
-      <mat-select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($event); onFilterChange()" multiple>
+      <mat-select [ngModel]="selectedTypes()" (ngModelChange)="selectedTypes.set($event); onFilterChange()" multiple>
         @for (type of availableTypes(); track type) {
-          <mat-option [value]="type">{{ type | titlecase }}</mat-option>
+          <mat-option [value]="type"
+          [disabled]="selectedTypes().length >= 2 && !selectedTypes().includes(type)"
+          >{{ type | titlecase }}</mat-option>
         }
       </mat-select>
     </mat-form-field>

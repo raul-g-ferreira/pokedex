@@ -37,7 +37,7 @@ export class PokedexComponent implements OnInit {
   public isLoading = signal<boolean>(true);
 
   public searchTerm = signal<string>('');
-  public selectedType = signal<string[]>([]);
+  public selectedTypes = signal<string[]>([]);
   public availableTypes = signal<string[]>(['normal', 'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy']);
   public showOnlyFavorites = signal<boolean>(false);
 
@@ -46,7 +46,7 @@ export class PokedexComponent implements OnInit {
 
   public filteredPokemons = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    const type = this.selectedType();
+    const type = this.selectedTypes();
     const showFavs = this.showOnlyFavorites();
 
     this.allPokemons().forEach(pokemon => {
@@ -57,8 +57,8 @@ export class PokedexComponent implements OnInit {
       const matchName = pokemon.name.toLowerCase().includes(term);
 
       const matchType = type.length > 0
-        ? type.every((selectedType: string) =>
-          (pokemon as any).types?.some((pkmType: any) => pkmType.type.name === selectedType)
+        ? type.every((selectedTypes: string) =>
+          (pokemon as any).types?.some((pkmType: any) => pkmType.type.name === selectedTypes)
         )
         : true;
       return matchName && matchType && (!showFavs || (pokemon as any).isFavorite);

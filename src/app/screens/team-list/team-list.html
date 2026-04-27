@@ -1,0 +1,40 @@
+<div class="teams-container">
+
+  <div class="filters-container" style="display: flex; gap: 16px; padding: 20px;">
+
+    <mat-form-field appearance="outline" style="flex: 1;">
+      <mat-label>Search Team</mat-label>
+      <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Type a team name">
+    </mat-form-field>
+
+    <div class="actions">
+      <button class="create" (click)="createTeam()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid">
+    @if (isLoading()) {
+    @for (i of [1,2,3]; track i) {
+    <app-card-skeleton></app-card-skeleton>
+    }
+    } @else {
+    @for (team of teams(); track team.id) {
+
+    <app-pokemon-card [pokemon]="team" />
+
+    } @empty {
+    <div class="empty-state">
+      <p>No Teams found.</p>
+    </div>
+    }
+    }
+    <!-- <mat-paginator
+    [length]="filteredPokemons().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[8, 18, 48, 151]"
+    (page)="onPageChange($event)">
+  </mat-paginator> -->
+  </div>
+</div>

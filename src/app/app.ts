@@ -1,6 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { PokedexComponent } from './components/pokedex-component/pokedex-component';
 import { Header } from './template/header/header';
 import { Content } from './template/content/content';
 

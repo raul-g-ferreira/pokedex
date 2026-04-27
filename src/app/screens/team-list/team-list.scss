@@ -1,0 +1,40 @@
+.teams-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #1e1e1e;
+  min-height: 100vh;
+  margin-top: 20px;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: #888;
+  font-size: 1.2rem;
+  background-color: #212121;
+  border-radius: 12px;
+  border: 1px dashed #444;
+}
+
+.actions .create {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2rem;
+
+  &:hover {
+    background-color: #45a049;
+  }
+
+}

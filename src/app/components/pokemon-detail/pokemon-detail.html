@@ -8,13 +8,27 @@
       <h1 class="name">{{ data.name | titlecase }}</h1>
       <span class="id">#{{ data.id }}</span>
 
-      <button (click)="toggleFavorite(data.id)">
-        @if (!pokemonFull().isFavorite) {
-        <mat-icon>favorite_border</mat-icon>
-        } @else {
-        <mat-icon class="favorite">favorite</mat-icon>
-        }
-      </button>
+      <div class="actions">
+
+        <mat-form-field appearance="fill" class="w-full mt-4">
+          <mat-label>Adicionar à Equipe</mat-label>
+          <mat-select multiple [ngModel]="selectedTeams()" (selectionChange)="onTeamChange($event)">
+
+            @for (team of teams; track team.id) {
+            <mat-option [value]="team.id">
+              {{ team.name }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button (click)="toggleFavorite(data.id)">
+          @if (!pokemonFull().isFavorite) {
+          <mat-icon>favorite_border</mat-icon>
+          } @else {
+          <mat-icon class="favorite">favorite</mat-icon>
+          }
+        </button>
+      </div>
     </div>
 
     <div class="main-info">
@@ -22,8 +36,8 @@
 
       <div class="types">
         @for (t of pokemonFull().types; track t) {
-        <span class="type-badge" [class]="t.type.name">
-          {{ t.type.name | uppercase }}
+        <span class="type-badge" [class]="t">
+          {{ t | uppercase }}
         </span>
         }
       </div>
@@ -40,13 +54,13 @@
     <div class="stats-section">
       <h3>Status Base</h3>
       @for (s of pokemonFull().stats; track s) {
-        <div class="stat-row">
-          <span class="label">{{ adjustStatsName(s.stat.name) }}</span>
-          <div class="bar-container">
-            <div class="bar" [style.width.%]="(s.base_stat / 200) * 100"></div>
-            <span class="value">{{ s.base_stat }}</span>
-          </div>
+      <div class="stat-row">
+        <span class="label">{{ adjustStatsName(s.name) }}</span>
+        <div class="bar-container">
+          <div class="bar" [style.width.%]="(s.value / 200) * 100"></div>
+          <span class="value">{{ s.value }}</span>
         </div>
+      </div>
       }
     </div>
   </div>

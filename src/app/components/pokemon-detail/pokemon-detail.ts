@@ -5,6 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
 import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
+import { FullPokemon } from '../../models/full-pokemon';
+import { TeamService } from '../../services/team-service';
+import { MatFormField, MatHint, MatLabel } from '@angular/material/input';
+import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -13,28 +18,51 @@ import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
     TitleCasePipe,
     UpperCasePipe,
     MatIconModule,
-    DetailSkeleton
+    DetailSkeleton,
+    MatFormField,
+    MatLabel,
+    MatSelectModule,
+    MatHint,
+    MatOption,
+    FormsModule
   ],
   templateUrl: './pokemon-detail.html',
   styleUrl: './pokemon-detail.scss',
 })
 export class PokemonDetail implements OnInit {
-  public pokemonFull = signal<any>(null);
+  public pokemonFull = signal<FullPokemon>({
+    id: '',
+    name: '',
+    imageUrl: '',
+    types: [],
+    stats: [],
+    description: '',
+    isFavorite: false
+  });
   public isLoading: boolean = true;
+
+  selectedTeams = signal<string[]>([])
+  teams: { id: string, name: string }[] = []
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PokemonBasic,
     private pokemonService: PokemonService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    private teamService: TeamService
+  ) {
+    this.teams = this.teamService.availableTeams
+  }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.pokemonService.getPokemonDetails(this.data.id!).subscribe(res => {
       this.pokemonFull.set(res)
       this.isLoading = false
 
       this.cdr.detectChanges()
+
     })
+    const currentTeams = await this.teamService.getTeamsByPokemon(this.data.id)
+    this.selectedTeams.set(currentTeams)
   }
 
   adjustStatsName(statName: string) {
@@ -43,7 +71,7 @@ export class PokemonDetail implements OnInit {
       'attack': 'Attack',
       'defense': 'Defense',
       'special-attack': 'SP Attack',
-      'special-defense': 'SP. Defense',
+      'special-defense': 'SP Defense',
       'speed': 'Speed'
     };
     return names[statName] || statName
@@ -56,10 +84,16 @@ export class PokemonDetail implements OnInit {
     this.pokemonService.toggleFavorite(id!);
 
     this.pokemonFull.update(pokemon => {
-        return {
-          ...pokemon,
-          isFavorite: !pokemon.isFavorite
-        }
+      return {
+        ...pokemon,
+        isFavorite: !pokemon.isFavorite
+      }
     })
+  }
+
+  async onTeamChange(event: any) {
+    const newSelection = event.value
+    await this.teamService.updatePokemonInTeams(this.data.id, newSelection)
+    this.selectedTeams.set(newSelection)
   }
 }

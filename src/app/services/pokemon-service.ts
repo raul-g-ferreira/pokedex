@@ -4,6 +4,7 @@ import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { PokemonBasic } from '../models/pokemon-basic';
 import { PokemonListResponse } from '../models/pokemon-list-response';
 import { StorageService } from './storage-service';
+import { FullPokemon } from '../models/full-pokemon';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,7 @@ export class PokemonService {
     );
   }
 
-  getPokemonDetails(id: string): Observable<any> {
+  getPokemonDetails(id: string): Observable<FullPokemon> {
     const CACHE_KEY = `pokemon_${id}`;
 
     return this.storage.getItem<any>(CACHE_KEY).pipe(
@@ -63,11 +64,25 @@ export class PokemonService {
         }).pipe(
           map((res: any) => {
             const fullPokemon = {
-              ...res.info,
-              description: res.species.flavor_text_entries.find((entry: any) => entry.language.name === 'en')?.flavor_text
-              .replace(/[\n\f]/g, ' '),
+              id: res.info.id,
+              name: res.info.name,
+
+              imageUrl: res.info.sprites.other['official-artwork'].front_default,
+
+              types: res.info.types.map((t: any) => t.type.name),
+
+              stats: res.info.stats.map((s: any) => ({
+                name: s.stat.name,
+                value: s.base_stat
+              })),
+
+              description: res.species.flavor_text_entries
+                .find((entry: any) => entry.language.name === 'en')?.flavor_text
+                .replace(/[\n\f]/g, ' '),
+
               isFavorite: false
             }
+
             this.storage.setItem(CACHE_KEY, fullPokemon)
 
             return fullPokemon

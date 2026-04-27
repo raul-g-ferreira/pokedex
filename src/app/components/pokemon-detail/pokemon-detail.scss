@@ -138,18 +138,27 @@
     margin-left: 10px;
   }
 
-  button {
+  .actions {
     position: absolute;
-    right: 30px;
-    background: none;
-    border: none;
-    color: #888;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    top: 10px;
+    right: 10px;
+
+    display: flex;
+    justify-content: space-around;
+
+
+    button {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.2s ease-in-out;
 
     &:hover {
       color: #fff;
     }
+    }
+
   }
 }
 

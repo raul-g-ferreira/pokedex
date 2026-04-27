@@ -2,7 +2,6 @@ import { Team } from './../models/team';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage-service';
 import { firstValueFrom } from 'rxjs';
-import { Team } from '../models/team';
 
 @Injectable({
   providedIn: 'root',

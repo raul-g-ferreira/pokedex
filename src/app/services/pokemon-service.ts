@@ -68,6 +68,7 @@ export class PokemonService {
               name: res.info.name,
 
               imageUrl: res.info.sprites.other['official-artwork'].front_default,
+              gifUrl: res.info.sprites.versions['generation-v']['black-white'].animated.front_default,
 
               types: res.info.types.map((t: any) => t.type.name),
 

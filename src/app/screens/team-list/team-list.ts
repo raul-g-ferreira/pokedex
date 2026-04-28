@@ -10,6 +10,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PokemonCard } from '../../components/pokemon-card/pokemon-card';
 import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skeleton';
 import { TeamService } from '../../services/team-service';
+import { TeamCard } from "../../components/team-card/team-card";
 
 @Component({
   selector: 'app-teams',
@@ -23,8 +24,9 @@ import { TeamService } from '../../services/team-service';
     FormsModule,
     NgxSkeletonLoaderModule,
     CardSkeleton,
-    MatCheckboxModule
-  ],
+    MatCheckboxModule,
+    TeamCard
+],
   templateUrl: './team-list.html',
   styleUrl: './team-list.scss',
 })
@@ -47,7 +49,7 @@ export class TeamList implements OnInit {
   async loadTeams() {
     this.isLoading.set(true)
     try {
-      await this.teamService.getTeams()
+      this.teams.set(await this.teamService.getTeams())
 
     } finally {
       this.isLoading.set(false)

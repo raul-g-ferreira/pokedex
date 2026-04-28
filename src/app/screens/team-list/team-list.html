@@ -22,7 +22,7 @@
     } @else {
     @for (team of teams(); track team.id) {
 
-    <app-pokemon-card [pokemon]="team" />
+      <app-team-card [team]="team"></app-team-card>
 
     } @empty {
     <div class="empty-state">

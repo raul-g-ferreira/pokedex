@@ -15,6 +15,7 @@ export class TeamService {
 
   async getTeams(): Promise<Team[]> {
     const teams = await firstValueFrom(this.storage.getItem<Team[]>(this.TEAMS_KEY))
+    console.log(teams)
     return teams || []
   }
 

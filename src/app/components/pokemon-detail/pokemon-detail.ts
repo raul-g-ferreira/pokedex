@@ -34,6 +34,7 @@ export class PokemonDetail implements OnInit {
     id: '',
     name: '',
     imageUrl: '',
+    gifUrl: '',
     types: [],
     stats: [],
     description: '',

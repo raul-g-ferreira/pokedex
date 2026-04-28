@@ -1,5 +1,4 @@
-import { Component, signal } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PokemonCard } from '../../components/pokemon-card/pokemon-card';
 import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skeleton';
+import { TeamService } from '../../services/team-service';
 
 @Component({
   selector: 'app-teams',
@@ -21,7 +21,6 @@ import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skel
     MatSelectModule,
     MatIconModule,
     FormsModule,
-    TitleCasePipe,
     NgxSkeletonLoaderModule,
     CardSkeleton,
     MatCheckboxModule
@@ -29,14 +28,38 @@ import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skel
   templateUrl: './team-list.html',
   styleUrl: './team-list.scss',
 })
-export class TeamList {
+export class TeamList implements OnInit {
   teams = signal<any[]>([]);
 
   public isLoading = signal(false);
   public searchTerm = signal<string>('');
 
+  constructor (
+    private teamService: TeamService
+  ) {}
 
-  createTeam() {
 
+  async ngOnInit() {
+    await this.loadTeams()
+  }
+
+
+  async loadTeams() {
+    this.isLoading.set(true)
+    try {
+      await this.teamService.getTeams()
+
+    } finally {
+      this.isLoading.set(false)
+    }
+  }
+
+  async createTeam() {
+    const teamName = prompt("Type the team name:")
+    if (teamName && teamName.trim().length > 0) {
+      this.isLoading.set(true)
+      await this.teamService.createTeam(teamName)
+      await this.loadTeams()
+    }
   }
 }

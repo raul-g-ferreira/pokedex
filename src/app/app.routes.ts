@@ -15,4 +15,8 @@ export const routes: Routes = [
     path: 'team-list',
     component: TeamList
   },
+  {
+    path: '**',
+    redirectTo: ''
+  },
 ];

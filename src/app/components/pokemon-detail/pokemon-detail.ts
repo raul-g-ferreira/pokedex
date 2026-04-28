@@ -1,15 +1,15 @@
 import { TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/input';
+import { MatOption, MatSelectModule } from '@angular/material/select';
+import { FullPokemon } from '../../models/full-pokemon';
 import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
-import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
-import { FullPokemon } from '../../models/full-pokemon';
 import { TeamService } from '../../services/team-service';
-import { MatFormField, MatHint, MatLabel } from '@angular/material/input';
-import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -22,7 +22,6 @@ import { FormsModule } from '@angular/forms';
     MatFormField,
     MatLabel,
     MatSelectModule,
-    MatHint,
     MatOption,
     FormsModule
   ],

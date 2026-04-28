@@ -9,12 +9,6 @@ import { firstValueFrom } from 'rxjs';
 export class TeamService {
   private readonly TEAMS_KEY = 'pokemon_teams'
 
-  public availableTeams = [
-    { id: 'team1', name: 'Equipe Alpha' },
-    { id: 'team2', name: 'Equipe Beta' },
-    { id: 'team3', name: 'Equipe Delta' }
-  ]
-
   constructor(
     private storage: StorageService,
   ) {}
@@ -60,7 +54,7 @@ export class TeamService {
         if (team.pokemonIds.length < 6) {
           team.pokemonIds.push(pokemonId)
         } else {
-          console.warn(`Team ${team.id} is already full`)
+          console.warn(`Team ${team.name} is already full`)
         }
       } else if (!isInSelection && currentIndex !== -1) {
         team.pokemonIds.splice(currentIndex, 1)

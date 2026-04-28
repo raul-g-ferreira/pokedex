@@ -10,12 +10,12 @@
 
       <div class="actions">
 
-        <mat-form-field appearance="fill" class="w-full mt-4">
-          <mat-label>Adicionar à Equipe</mat-label>
+        <mat-form-field appearance="outline" class="w-full mt-4">
+          <mat-label>Add to Team</mat-label>
           <mat-select multiple [ngModel]="selectedTeams()" (selectionChange)="onTeamChange($event)">
 
             @for (team of teams; track team.id) {
-            <mat-option [value]="team.id">
+            <mat-option [value]="team.id" [disabled]="team.pokemonIds.length >= 6 && !team.pokemonIds.includes(data.id)">
               {{ team.name }}
             </mat-option>
             }

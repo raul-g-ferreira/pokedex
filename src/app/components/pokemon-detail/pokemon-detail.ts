@@ -10,6 +10,7 @@ import { PokemonBasic } from '../../models/pokemon-basic';
 import { PokemonService } from '../../services/pokemon-service';
 import { TeamService } from '../../services/team-service';
 import { DetailSkeleton } from '../skeletons/detail-skeleton/detail-skeleton';
+import { Team } from '../../models/team';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -41,16 +42,14 @@ export class PokemonDetail implements OnInit {
   public isLoading: boolean = true;
 
   selectedTeams = signal<string[]>([])
-  teams: { id: string, name: string }[] = []
+  teams: Team[] = []
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PokemonBasic,
     private pokemonService: PokemonService,
     private cdr: ChangeDetectorRef,
     private teamService: TeamService
-  ) {
-    this.teams = this.teamService.availableTeams
-  }
+  ) {}
 
   async ngOnInit() {
     this.pokemonService.getPokemonDetails(this.data.id!).subscribe(res => {
@@ -60,6 +59,7 @@ export class PokemonDetail implements OnInit {
       this.cdr.detectChanges()
 
     })
+    this.teams = await this.teamService.getTeams()
     const currentTeams = await this.teamService.getTeamsByPokemon(this.data.id)
     this.selectedTeams.set(currentTeams)
   }

@@ -11,7 +11,7 @@ export class TeamService {
 
   constructor(
     private storage: StorageService,
-  ) {}
+  ) { }
 
   async getTeams(): Promise<Team[]> {
     const teams = await firstValueFrom(this.storage.getItem<Team[]>(this.TEAMS_KEY))
@@ -34,14 +34,12 @@ export class TeamService {
     return newTeam
   }
 
-  async renameTeam(id:string, newName:string) {
+  async removeTeam(id: string) {
     const teams = await this.getTeams()
     const teamIndex = teams.findIndex(t => t.id === id)
 
-    if (teamIndex !== -1) {
-      teams[teamIndex].name = newName
-      await this.storage.setItem(this.TEAMS_KEY, teams)
-    }
+    teams.splice(teamIndex, 1)
+    await this.storage.setItem(this.TEAMS_KEY, teams)
   }
 
   async updatePokemonInTeams(pokemonId: string, selectedTeamIds: string[]) {
@@ -71,4 +69,15 @@ export class TeamService {
       .filter(team => team.pokemonIds.includes(pokemonId))
       .map(team => team.id)
   }
+
+  async removePokemonFromTeam(pokemonId: string, teamId: string) {
+    const allTeams = await this.getTeams()
+    const team = allTeams.find(t => t.id === teamId)
+
+    if (team) {
+      team.pokemonIds = team.pokemonIds.filter(id => id !== pokemonId)
+      await this.storage.setItem(this.TEAMS_KEY, allTeams)
+    }
+  }
 }
+

@@ -22,7 +22,7 @@
     } @else {
     @for (team of teams(); track team.id) {
 
-      <app-team-card [team]="team"></app-team-card>
+    <app-team-card [team]="team" (onTeamDeleted)="loadTeams()" (onTeamUpdated)="loadTeams()"></app-team-card>
 
     } @empty {
     <div class="empty-state">

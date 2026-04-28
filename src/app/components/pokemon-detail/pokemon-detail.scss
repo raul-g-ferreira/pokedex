@@ -171,3 +171,17 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
+.pokemon-img {
+  image-rendering: crisp-edges; /* Firefox */
+  image-rendering: pixelated; /* Chrome, Edge, Safari */
+
+  width: 500px;
+  height: 500px;
+
+  &img {
+    width: 100%;
+   height: 100%;
+  object-fit: contain; /* Ajusta a imagem dentro do espaço */
+  }
+}

@@ -4,12 +4,25 @@
       {{ team().name }}
 
     </span>
+    <div class="actions">
+      <button class="toggle-edit-btn" (click)="toggleEditMode()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button class="remove-team-btn" (click)="deleteTeam(team().id)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="team">
     @for(pokemon of pokemons(); track $index) {
-      <div class="pokemon">
-        <img [src]="pokemon.gifUrl" alt="{{ pokemon.name }}" />
-      </div>
+    <div class="pokemon" >
+      @if (isEditing()) {
+        <button class="remove-pkm-btn" (click)="removePokemon(pokemon.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+      <img [src]="pokemon.gifUrl" alt="{{ pokemon.name }}" />
+    </div>
     }
   </div>
 </div>

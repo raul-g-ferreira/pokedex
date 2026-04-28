@@ -32,7 +32,7 @@
     </div>
 
     <div class="main-info">
-      <img [src]="data.imageUrl" class="pokemon-img">
+      <img [src]="pokemonFull().gifUrl" class="pokemon-img">
 
       <div class="types">
         @for (t of pokemonFull().types; track t) {

@@ -42,6 +42,8 @@ export class PokemonDetail implements OnInit {
   });
   public isLoading: boolean = true;
 
+  public animateBars = signal<boolean>(false)
+
   selectedTeams = signal<string[]>([])
   teams: Team[] = []
 
@@ -63,6 +65,7 @@ export class PokemonDetail implements OnInit {
     this.teams = await this.teamService.getTeams()
     const currentTeams = await this.teamService.getTeamsByPokemon(this.data.id)
     this.selectedTeams.set(currentTeams)
+    setTimeout(() => this.animateBars.set(true), 50)
   }
 
   adjustStatsName(statName: string) {

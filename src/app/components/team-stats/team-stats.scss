@@ -1,31 +1,67 @@
+.stats-section {
+  padding: 24px 16px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  color: #e0e0e0;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #333333;
+    padding-bottom: 12px;
+  }
+}
+
 .stat-row {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 
   .label {
-    width: 100px;
-    font-size: 12px;
+    width: 120px; /* Um pouco maior para acomodar "SP Defense" sem quebrar linha */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #aaaaaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .bar-container {
     flex: 1;
-    background: #444;
-    height: 12px;
-    border-radius: 6px;
+    background: #2a2a2a; /* Fundo mais escuro para gerar contraste */
+    height: 18px; /* Levemente mais alta para melhorar a leitura do número */
+    border-radius: 10px;
     position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6); /* Efeito de profundidade na trilha */
+
+    /* overflow: hidden; foi removido para que o glow da barra possa "vazar" um pouco */
 
     .bar {
       height: 100%;
-      background: #4caf50;
-      border-radius: 6px;
+      border-radius: 10px;
+      /* Gradiente de um azul neon para o verde clássico */
+      background: linear-gradient(90deg, #00bcd4, #4caf50);
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6); /* Brilho neon suave */
+
+      /* Animação suave para quando o modal abrir, a barra crescer do 0 ao valor real */
+      transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .value {
       position: absolute;
-      right: 5px;
-      top: -2px;
-      font-size: 10px;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%); /* Centraliza perfeitamente na vertical */
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #ffffff;
+      /* O text-shadow é o segredo aqui: garante que o número branco seja lido mesmo se a barra verde passar por ele */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), -1px -1px 3px rgba(0, 0, 0, 0.9);
+      z-index: 2;
     }
   }
 }

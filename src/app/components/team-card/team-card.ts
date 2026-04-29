@@ -71,6 +71,7 @@ export class TeamCard {
 
   showStats(team: Team) {
     this.dialog.open(TeamStats, {
+      width: '400px',
       data: team
     })
   }

@@ -5,6 +5,13 @@
 
     </span>
     <div class="actions">
+      <button class="favorite-team-btn btn" (click)="toggleFavorite()" [class]="{'favorited': team().isFavorite}">
+        @if (team().isFavorite) {
+          <mat-icon class="favorite-icon">favorite</mat-icon>
+        } @else {
+          <mat-icon class="favorite-icon">favorite_outline</mat-icon>
+        }
+      </button>
       <button class="stats-team-btn btn" (click)="showStats(team())">
         <mat-icon>bar_chart</mat-icon>
       </button>

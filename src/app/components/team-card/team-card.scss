@@ -66,22 +66,29 @@
 
   .remove-team-btn {
 
-    &hover {
+    &:hover {
       color: #ff5555;
     }
   }
 
   .stats-team-btn {
 
-    &hover {
+    &:hover {
       color: #4f96ff;
     }
   }
 
   .toggle-edit-btn {
 
-    &hover {
+    &:hover {
       color: #ffd000;
+    }
+  }
+
+  .favorite-team-btn {
+
+    &:hover {
+      color: #ff00d4;
     }
   }
 
@@ -89,6 +96,11 @@
     color: #ffd000;
     transform: scale(1.1);
     box-shadow: 0 0 4px 4px #ffd00041;
+  }
+
+  .favorited {
+    color: #ff00d4;
+
   }
 }
 

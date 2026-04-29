@@ -34,7 +34,8 @@ export class TeamService {
       { name: 'SP Attack', value: 0 },
       { name: 'SP Defense', value: 0 },
       { name: 'Speed', value: 0 },
-    ]
+    ],
+    isFavorite: false,
     }
 
     teams.push(newTeam)
@@ -114,6 +115,16 @@ export class TeamService {
       }
     }
     team.stats = totalStats
+  }
+
+  async toggleFavorite(teamId: string) {
+    const allTeams = await this.getTeams()
+    const team = allTeams.find(t => t.id === teamId)
+
+    if (team) {
+      team.isFavorite = !team.isFavorite
+      await this.storage.setItem(this.TEAMS_KEY, allTeams)
+    }
   }
 }
 

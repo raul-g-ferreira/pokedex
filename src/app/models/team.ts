@@ -6,5 +6,5 @@ export interface Team {
     name: string,
     value: number
   }[],
-  // isFavorite: boolean,
+  isFavorite: boolean,
 }

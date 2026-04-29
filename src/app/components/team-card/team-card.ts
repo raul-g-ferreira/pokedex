@@ -75,4 +75,9 @@ export class TeamCard {
       data: team
     })
   }
+
+  toggleFavorite() {
+    this.teamService.toggleFavorite(this.team().id)
+    this.team().isFavorite = !this.team().isFavorite
+  }
 }

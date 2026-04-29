@@ -2,6 +2,7 @@ import { Team } from './../models/team';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage-service';
 import { firstValueFrom } from 'rxjs';
+import { PokemonService } from './pokemon-service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,11 @@ export class TeamService {
 
   constructor(
     private storage: StorageService,
+    private pokemonService: PokemonService
   ) { }
 
   async getTeams(): Promise<Team[]> {
     const teams = await firstValueFrom(this.storage.getItem<Team[]>(this.TEAMS_KEY))
-    console.log(teams)
     return teams || []
   }
 
@@ -25,7 +26,15 @@ export class TeamService {
     const newTeam: Team = {
       id: crypto.randomUUID(),
       name: name,
-      pokemonIds: []
+      pokemonIds: [],
+      stats: [
+      { name: 'HP', value: 0 },
+      { name: 'Attack', value: 0 },
+      { name: 'Defense', value: 0 },
+      { name: 'SP Attack', value: 0 },
+      { name: 'SP Defense', value: 0 },
+      { name: 'Speed', value: 0 },
+    ]
     }
 
     teams.push(newTeam)
@@ -52,12 +61,11 @@ export class TeamService {
       if (isInSelection && currentIndex === -1) {
         if (team.pokemonIds.length < 6) {
           team.pokemonIds.push(pokemonId)
-        } else {
-          console.warn(`Team ${team.name} is already full`)
         }
       } else if (!isInSelection && currentIndex !== -1) {
         team.pokemonIds.splice(currentIndex, 1)
       }
+      await this.calculateTeamStats(team)
     }
 
     await this.storage.setItem(this.TEAMS_KEY, allTeams)
@@ -75,9 +83,37 @@ export class TeamService {
     const team = allTeams.find(t => t.id === teamId)
 
     if (team) {
-      team.pokemonIds = team.pokemonIds.filter(id => id !== pokemonId)
+      team.pokemonIds = team.pokemonIds.filter(id => id != pokemonId)
+
+      await this.calculateTeamStats(team)
+
       await this.storage.setItem(this.TEAMS_KEY, allTeams)
     }
+  }
+
+  async calculateTeamStats(team: Team) {
+    let totalStats = [
+      { name: 'HP', value: 0 },
+      { name: 'Attack', value: 0 },
+      { name: 'Defense', value: 0 },
+      { name: 'SP Attack', value: 0 },
+      { name: 'SP Defense', value: 0 },
+      { name: 'Speed', value: 0 },
+    ]
+
+    const requests = team.pokemonIds.map(id =>
+      firstValueFrom(this.pokemonService.getPokemonDetails(id))
+    )
+
+    const pokemons = await Promise.all(requests)
+
+    for (const pkm of pokemons ) {
+
+      for(let i = 0; i < pkm.stats.length; i++) {
+        totalStats[i].value += pkm.stats[i].value
+      }
+    }
+    team.stats = totalStats
   }
 }
 

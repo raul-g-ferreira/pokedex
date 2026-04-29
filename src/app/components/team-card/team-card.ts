@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, input, output, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { Team } from '../../models/team';
@@ -22,7 +22,8 @@ export class TeamCard {
 
   constructor(
     private teamService: TeamService,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   private team$ = toObservable(this.team);
@@ -57,9 +58,9 @@ export class TeamCard {
     this.isEditing.update(valor => !valor)
   }
 
-  removePokemon(pokemonId:string) {
-    this.teamService.removePokemonFromTeam(pokemonId, this.team().id)
-    console.log(this.team())
+  async removePokemon(pokemonId:string) {
+    await this.teamService.removePokemonFromTeam(pokemonId, this.team().id)
     this.onTeamUpdated.emit()
+    this.cdr.detectChanges()
   }
 }

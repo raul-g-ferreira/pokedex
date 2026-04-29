@@ -7,15 +7,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { PokemonCard } from '../../components/pokemon-card/pokemon-card';
 import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skeleton';
-import { TeamService } from '../../services/team-service';
 import { TeamCard } from "../../components/team-card/team-card";
+import { TeamService } from '../../services/team-service';
 
 @Component({
   selector: 'app-teams',
   imports: [
-    PokemonCard,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatInputModule,
@@ -25,7 +23,7 @@ import { TeamCard } from "../../components/team-card/team-card";
     NgxSkeletonLoaderModule,
     CardSkeleton,
     MatCheckboxModule,
-    TeamCard
+    TeamCard,
 ],
   templateUrl: './team-list.html',
   styleUrl: './team-list.scss',
@@ -37,7 +35,7 @@ export class TeamList implements OnInit {
   public searchTerm = signal<string>('');
 
   constructor (
-    private teamService: TeamService
+    private teamService: TeamService,
   ) {}
 
 

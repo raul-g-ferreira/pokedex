@@ -1,0 +1,16 @@
+<div class="modal">
+  <mat-dialog-content class="content">
+    <mat-form-field class="name">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="teamInfo().name" />
+    </mat-form-field>
+    <mat-form-field class="description">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="teamInfo().description" ></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-button class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button class="submit-btn" [disabled]="!teamInfo().name || !teamInfo().description" (click)="onSubmit()">Create</button>
+  </mat-dialog-actions>
+</div>

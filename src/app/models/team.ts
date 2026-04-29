@@ -1,8 +1,9 @@
 export interface Team {
   id: string,
   name: string,
+  description: string,
   pokemonIds: string[],
-  stats?: {
+  stats: {
     name: string,
     value: number
   }[],

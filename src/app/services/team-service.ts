@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage-service';
 import { firstValueFrom } from 'rxjs';
 import { PokemonService } from './pokemon-service';
+import { TeamCreateDTO } from '../models/dtos/team-create-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,13 @@ export class TeamService {
     return teams || []
   }
 
-  async createTeam(name: string): Promise<Team> {
+  async createTeam(dto: TeamCreateDTO): Promise<Team> {
     const teams = await this.getTeams()
 
     const newTeam: Team = {
       id: crypto.randomUUID(),
-      name: name,
+      name: dto.name,
+      description: dto.description,
       pokemonIds: [],
       stats: [
       { name: 'HP', value: 0 },

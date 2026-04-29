@@ -10,6 +10,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skeleton';
 import { TeamCard } from "../../components/team-card/team-card";
 import { TeamService } from '../../services/team-service';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamFormModal } from '../../components/team-form-modal/team-form-modal';
+import { TeamCreateDTO } from '../../models/dtos/team-create-dto';
 
 @Component({
   selector: 'app-teams',
@@ -36,6 +39,7 @@ export class TeamList implements OnInit {
 
   constructor (
     private teamService: TeamService,
+    private dialog: MatDialog,
   ) {}
 
 
@@ -47,7 +51,13 @@ export class TeamList implements OnInit {
   async loadTeams() {
     this.isLoading.set(true)
     try {
-      this.teams.set(await this.teamService.getTeams())
+      const teams = await this.teamService.getTeams()
+      teams.sort((a, b) => {
+        if (a.isFavorite && !b.isFavorite) return -1
+        if (!a.isFavorite && b.isFavorite) return 1
+        return 0
+      })
+      this.teams.set(teams)
 
     } finally {
       this.isLoading.set(false)
@@ -55,11 +65,17 @@ export class TeamList implements OnInit {
   }
 
   async createTeam() {
-    const teamName = prompt("Type the team name:")
-    if (teamName && teamName.trim().length > 0) {
-      this.isLoading.set(true)
-      await this.teamService.createTeam(teamName)
-      await this.loadTeams()
-    }
+    const dialogRef = this.dialog.open(TeamFormModal, {
+      width: '400px',
+    })
+
+    dialogRef.afterClosed().subscribe(async (result: TeamCreateDTO) => {
+      if (result){
+        this.isLoading.set(true)
+        await this.teamService.createTeam(result)
+        await this.loadTeams()
+        this.isLoading.set(false)
+      }
+    })
   }
 }

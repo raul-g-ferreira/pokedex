@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, input, output, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { Team } from '../../models/team';
 import { PokemonService } from '../../services/pokemon-service';
-import { MatIconModule } from '@angular/material/icon';
 import { TeamService } from '../../services/team-service';
-import { MatDialog } from '@angular/material/dialog';
 import { TeamStats } from '../team-stats/team-stats';
+import { ConfirmModal } from '../confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-team-card',
@@ -52,11 +53,17 @@ export class TeamCard {
   );
 
   async deleteTeam(teamId: string) {
-    const confirmDelete = confirm(`Are you sure you want to delete the team "${this.team().name}"? This action cannot be undone.`);
-    if (confirmDelete) {
-      await this.teamService.removeTeam(teamId);
-      this.onTeamDeleted.emit()
-    }
+    const dialogRef = this.dialog.open(ConfirmModal, {
+      height: '150px',
+      data: 'Confirm to delete the team'
+    })
+
+    dialogRef.afterClosed().subscribe(async (result: boolean) => {
+      if (result) {
+        await this.teamService.removeTeam(teamId);
+        this.onTeamDeleted.emit()
+      }
+    })
   }
 
   toggleEditMode() {

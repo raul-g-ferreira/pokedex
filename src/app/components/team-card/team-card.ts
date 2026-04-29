@@ -5,10 +5,14 @@ import { Team } from '../../models/team';
 import { PokemonService } from '../../services/pokemon-service';
 import { MatIconModule } from '@angular/material/icon';
 import { TeamService } from '../../services/team-service';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamStats } from '../team-stats/team-stats';
 
 @Component({
   selector: 'app-team-card',
-  imports: [MatIconModule],
+  imports: [
+    MatIconModule,
+  ],
   templateUrl: './team-card.html',
   styleUrl: './team-card.scss',
 })
@@ -23,7 +27,8 @@ export class TeamCard {
   constructor(
     private teamService: TeamService,
     private pokemonService: PokemonService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
   ) {}
 
   private team$ = toObservable(this.team);
@@ -62,5 +67,11 @@ export class TeamCard {
     await this.teamService.removePokemonFromTeam(pokemonId, this.team().id)
     this.onTeamUpdated.emit()
     this.cdr.detectChanges()
+  }
+
+  showStats(team: Team) {
+    this.dialog.open(TeamStats, {
+      data: team
+    })
   }
 }

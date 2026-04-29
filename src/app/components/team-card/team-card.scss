@@ -24,6 +24,7 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .pokemon {
   position: relative;
   width: 100px;
@@ -35,6 +36,7 @@
   justify-content: center;
   align-items: flex-end;
 }
+
 .team img {
   width: 90%;
   height: 90%;
@@ -43,39 +45,76 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 8px;
+  margin-top: 4px;
 
-  .remove-btn {
+  .btn {
     background: none;
     border: none;
+    border-radius: 8px;
     color: #fff;
     cursor: pointer;
     padding: 4px;
+    box-shadow: 0 0 2px 2px rgba(95, 95, 95, 0.6);
+    margin-left: 12px;
 
     &:hover {
+
+      transform: scale(1.1);
+      box-shadow: 0 0 4px 4px rgba(95, 95, 95, 0.8);
+    }
+  }
+
+  .remove-team-btn {
+
+    &hover {
       color: #ff5555;
     }
+  }
+
+  .stats-team-btn {
+
+    &hover {
+      color: #4f96ff;
+    }
+  }
+
+  .toggle-edit-btn {
+
+    &hover {
+      color: #ffd000;
+    }
+  }
+
+  .editing {
+    color: #ffd000;
+    transform: scale(1.1);
+    box-shadow: 0 0 4px 4px #ffd00041;
   }
 }
 
 /* O estilo do botão flutuante de remover */
 .remove-pkm-btn {
   position: absolute;
-  top: -5px;     /* Sobe um pouquinho do limite */
-  right: -5px;   /* Puxa para a direita */
-  background-color: #f44336; /* Cor vermelha de alerta */
+  top: -5px;
+  /* Sobe um pouquinho do limite */
+  right: -5px;
+  /* Puxa para a direita */
+  background-color: #f44336;
+  /* Cor vermelha de alerta */
   color: white;
   border: none;
-  border-radius: 50%; /* Deixa perfeitamente redondo */
+  border-radius: 50%;
+  /* Deixa perfeitamente redondo */
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   padding: 0;
-  z-index: 10; /* Garante que fique por cima da imagem */
+  z-index: 10;
+  /* Garante que fique por cima da imagem */
 
   mat-icon {
     font-size: 16px;

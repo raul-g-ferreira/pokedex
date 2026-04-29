@@ -1,0 +1,12 @@
+<div class="stats-section">
+  <h1>Team Stats</h1>
+  @for (s of data.stats; track s) {
+  <div class="stat-row">
+    <span class="label">{{ s.name }}</span>
+    <div class="bar-container">
+      <div class="bar" [style.width.%]="(s.value / 1000) * 100"></div>
+      <span class="value">{{ s.value }}</span>
+    </div>
+  </div>
+  }
+</div>

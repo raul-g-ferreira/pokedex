@@ -1,0 +1,31 @@
+.stat-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .label {
+    width: 100px;
+    font-size: 12px;
+  }
+
+  .bar-container {
+    flex: 1;
+    background: #444;
+    height: 12px;
+    border-radius: 6px;
+    position: relative;
+
+    .bar {
+      height: 100%;
+      background: #4caf50;
+      border-radius: 6px;
+    }
+
+    .value {
+      position: absolute;
+      right: 5px;
+      top: -2px;
+      font-size: 10px;
+    }
+  }
+}

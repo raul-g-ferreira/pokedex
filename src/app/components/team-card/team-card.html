@@ -5,10 +5,13 @@
 
     </span>
     <div class="actions">
-      <button class="toggle-edit-btn" (click)="toggleEditMode()">
+      <button class="stats-team-btn btn" (click)="showStats(team())">
+        <mat-icon>bar_chart</mat-icon>
+      </button>
+      <button class="toggle-edit-btn btn" (click)="toggleEditMode()" [class]="{ 'editing': isEditing() }">
         <mat-icon>edit</mat-icon>
       </button>
-      <button class="remove-team-btn" (click)="deleteTeam(team().id)">
+      <button class="remove-team-btn btn" (click)="deleteTeam(team().id)">
         <mat-icon>delete_outline</mat-icon>
       </button>
     </div>

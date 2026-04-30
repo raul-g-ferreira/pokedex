@@ -41,7 +41,7 @@ export class PokedexComponent implements OnInit {
   public availableTypes = signal<string[]>(['normal', 'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy']);
   public showOnlyFavorites = signal<boolean>(false);
 
-  public pageSize = signal<number>(12);
+  public pageSize = signal<number>(8);
   public currentPage = signal<number>(0);
 
   public filteredPokemons = computed(() => {

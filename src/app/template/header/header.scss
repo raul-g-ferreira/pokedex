@@ -12,10 +12,16 @@
   padding: 5px;
 }
 
-.header-container .teams-button {
+ .btn {
   padding: 10px;
   margin-right: 25px;
   cursor: pointer;
   border: solid #aaa;
   border-radius: 12px;
+
+  &:hover {
+    border-color: #ddd;
+    color: #ddd;
+    box-shadow: 0 0 1.5px 1.5px #ffffff81;
+  }
 }

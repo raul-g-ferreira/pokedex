@@ -5,6 +5,7 @@
     <mat-form-field class="search" appearance="outline" style="flex: 1;">
       <mat-label>Search Team</mat-label>
       <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Type to search...">
+      <button class="clear-btn" (click)="clearSearchTerm()"><mat-icon>cancel</mat-icon></button>
     </mat-form-field>
 
     <div class="actions">
@@ -20,7 +21,7 @@
     <app-card-skeleton></app-card-skeleton>
     }
     } @else {
-    @for (team of teams(); track team.id) {
+    @for (team of filteredTeams(); track team.id) {
 
     <app-team-card [team]="team" (onTeamDeleted)="loadTeams()" (onTeamUpdated)="loadTeams()"></app-team-card>
 

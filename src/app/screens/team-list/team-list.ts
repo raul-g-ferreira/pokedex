@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +13,8 @@ import { TeamService } from '../../services/team-service';
 import { MatDialog } from '@angular/material/dialog';
 import { TeamFormModal } from '../../components/team-form-modal/team-form-modal';
 import { TeamCreateDTO } from '../../models/dtos/team-create-dto';
+import { Team } from '../../models/team';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-teams',
@@ -27,15 +29,27 @@ import { TeamCreateDTO } from '../../models/dtos/team-create-dto';
     CardSkeleton,
     MatCheckboxModule,
     TeamCard,
+    MatButtonModule
 ],
   templateUrl: './team-list.html',
   styleUrl: './team-list.scss',
 })
 export class TeamList implements OnInit {
-  teams = signal<any[]>([]);
 
-  public isLoading = signal(false);
-  public searchTerm = signal<string>('');
+  public isLoading = signal(false)
+  public searchTerm = signal<string>('')
+
+  public teams = signal<Team[]>([])
+
+  public filteredTeams = computed(() => {
+    const term = this.searchTerm().toLowerCase()
+
+    return this.teams().filter(t => {
+      const matchName = t.name.toLowerCase().includes(term)
+
+      return matchName
+    })
+  })
 
   constructor (
     private teamService: TeamService,
@@ -77,5 +91,9 @@ export class TeamList implements OnInit {
         this.isLoading.set(false)
       }
     })
+  }
+
+  clearSearchTerm() {
+    this.searchTerm.set('')
   }
 }

@@ -38,14 +38,31 @@ html {
   border-radius: 12px;
   cursor: pointer;
   font-size: 2rem;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
-.search {
-  border-radius: 12px;
-}
 
 .filters-container {
   display: flex;
   gap: 16px;
   padding: 10px 16px;
+
+  .search {
+    border-radius: 12px;
+
+    .clear-btn {
+      position: absolute;
+      right: -4px;
+      border: none;
+      background: none;
+      color: #888;
+
+      &:hover {
+        color: rgb(251, 251, 254);
+      }
+    }
+  }
 }

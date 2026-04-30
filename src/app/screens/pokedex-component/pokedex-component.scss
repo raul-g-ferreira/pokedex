@@ -5,6 +5,9 @@
 }
 
 .filters-container {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: #212121;
   padding: 20px;
   border-radius: 12px;
@@ -30,3 +33,5 @@
   border-radius: 12px;
   border: 1px dashed #444;
 }
+
+

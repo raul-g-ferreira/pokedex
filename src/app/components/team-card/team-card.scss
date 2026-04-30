@@ -12,10 +12,35 @@
   margin-bottom: 4vh;
   justify-content: space-between;
 
+  .header-info {
+    display: flex;
+    flex-direction: column;
+
+    hr {
+      width: 100%;
+    }
+
+    .desc {
+      margin-top: 3px;
+      overflow: hidden;
+      overflow-y: auto;
+
+      max-height: 100px;
+     word-break: break-all;
+
+     .description {
+      margin-top: 0;
+      color: #cccccc5b;
+      font-size: 0.8rem;
+      line-height: 13px;
+     }
+    }
+  }
+
   .title {
     font-size: 2rem;
     font-weight: bold;
-    text-decoration: underline;
+    margin-bottom: 10px;
   }
 }
 
@@ -45,8 +70,7 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 4px;
-
+  align-self: flex-start;
   .btn {
     background: none;
     border: none;

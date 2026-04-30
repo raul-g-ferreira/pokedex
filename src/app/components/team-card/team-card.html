@@ -1,9 +1,17 @@
 <div class="card-container">
   <div class="header">
-    <span class="title">
-      {{ team().name }}
+    <div class="header-info">
+      <span class="title">
+        {{ team().name }}
+      </span>
+      <hr>
+      <div class="desc">
+        <p class="description">
+          {{ team().description }}
+        </p>
+      </div>
 
-    </span>
+    </div>
     <div class="actions">
       <button class="favorite-team-btn btn" (click)="toggleFavorite()" [class]="{'favorited': team().isFavorite}">
         @if (team().isFavorite) {

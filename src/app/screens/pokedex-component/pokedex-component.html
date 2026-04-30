@@ -2,11 +2,11 @@
 
   <div class="filters-container" style="display: flex; gap: 16px; padding: 20px;">
 
-    <mat-form-field appearance="outline" style="flex: 1;">
-      <mat-label>Search Pokémon</mat-label>
-      <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event); onFilterChange()" placeholder="Ex: Bulbasaur">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Search Pokémon</mat-label>
+        <input matInput [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event); onFilterChange()" placeholder="Ex: Bulbasaur">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
 
     <mat-form-field appearance="outline" style="min-width: 200px;">
       <mat-label>Filter By Type</mat-label>

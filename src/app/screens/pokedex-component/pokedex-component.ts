@@ -12,6 +12,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PokemonCard } from '../../components/pokemon-card/pokemon-card';
 import { CardSkeleton } from '../../components/skeletons/card-skeleton/card-skeleton';
+import { FullPokemon } from '../../models/full-pokemon';
 
 @Component({
   selector: 'app-pokedex-component',
@@ -60,10 +61,10 @@ export class PokedexComponent implements OnInit {
 
       const matchType = type.length > 0
         ? type.every((selectedTypes: string) =>
-          (pokemon as any).types?.some((pkmType: any) => pkmType.type.name === selectedTypes)
+          (pokemon as unknown as FullPokemon).types?.some((pkmType: any) => pkmType.type.name === selectedTypes)
         )
         : true;
-      return matchName && matchType && (!showFavs || (pokemon as any).isFavorite);
+      return matchName && matchType && (!showFavs || (pokemon as unknown as FullPokemon).isFavorite);
     });
 
   });

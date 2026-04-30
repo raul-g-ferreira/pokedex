@@ -26,13 +26,12 @@ export class PokemonService {
           const id = urlParts[urlParts.length - 2];
           const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
-          return this.http.get<any>(pokemon.url).pipe(
+          return this.http.get<PokemonBasic>(pokemon.url).pipe(
             map(details => {
               return {
                 ...pokemon,
                 id,
                 imageUrl,
-                types: details.types,
                 isFavorite: false
               };
             })
@@ -47,7 +46,7 @@ export class PokemonService {
   getPokemonDetails(id: string): Observable<FullPokemon> {
     const CACHE_KEY = `pokemon_${id}`;
 
-    return this.storage.getItem<any>(CACHE_KEY).pipe(
+    return this.storage.getItem<FullPokemon>(CACHE_KEY).pipe(
 
       switchMap(cachedDetail => {
 
@@ -101,11 +100,10 @@ export class PokemonService {
   }
 
   async toggleFavorite(id: string) {
-    const pokemon = await this.storage.getItem<any>(`pokemon_${id}`).toPromise();
+    const pokemon = await this.storage.getItem<PokemonBasic>(`pokemon_${id}`).toPromise();
     if(pokemon) {
       pokemon.isFavorite = !pokemon.isFavorite;
       await this.storage.setItem(`pokemon_${id}`, pokemon);
-
     }
   }
 }
